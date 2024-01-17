@@ -1,4 +1,4 @@
-# Docker for Sandbox
+# Docker for CakePHP Sandbox app
 
 Docker Container Setup for the sandbox including
 - PHP 8.2
