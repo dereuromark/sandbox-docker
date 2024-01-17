@@ -47,4 +47,4 @@ It will not try to create databases or seed them anymore.
 ## Log out
 
 Type `exit;` and press enter.
-You can down the vms inside the root dir using `./down.sh`.
+You can down the containers from the root dir using `./down.sh`.
