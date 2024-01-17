@@ -15,7 +15,7 @@ Check out the repo, e.g. using
 
 You can configure each `docker-compose.yml` if needed.
 
-Then run
+Then navigate into this repo and run this here
 
     ./install.sh
 
@@ -27,7 +27,7 @@ Then:
 
 which will start all containers.
 
-Then you can log in into main "sandbox" one using
+Then you can log in into main "sandbox" container using
 
     ./shell.sh
 
