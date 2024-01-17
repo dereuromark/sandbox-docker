@@ -15,7 +15,7 @@ Check out the repo, e.g. using
 
 Then run
 
-    ./setup.sh
+    ./install.sh
 
 which should download the sandbox repo.
 
@@ -29,7 +29,7 @@ Then you can log in into main "sandbox" one using
 
     ./shell.sh
 
-Now you need to finish the installation using
+Now you need to finish the installation inside using
 
     ./install.sh
 
@@ -38,7 +38,7 @@ directly in that directory (/var/www/).
 Once done, it should be all up and running.
 
 ## Usage
-When reinstalling, make sure to not use install.sh anymore, but
+When reinstalling, make sure to not use install.sh anymore inside, but
 
     ./setup.sh
 
