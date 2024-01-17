@@ -1,0 +1,47 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/sandbox.conf:delegated
+      - ../www/cakephp-sandbox/:/var/www:delegated
+    labels:
+      traefik.enable: true
+      traefik.http.routers.sandbox.rule: "Host(`sandbox.local`)"
+      traefik.http.routers.sandbox.entrypoints: https
+      traefik.http.routers.sandbox.tls: true
+
+    networks:
+      - traefik
+      - sandbox
+
+  sandbox:
+    image: sandbox
+    build:
+      context: .
+      args:
+        UID: 1000
+        GID: 1000
+    container_name: sandbox
+    environment:
+      EMAIL_TRANSPORT_DEFAULT_URL: "smtp://mailtrap:25"
+      DB_HOST: "mariadb"
+      DB_USER: "user"
+      DB_PASSWORD: "geheim"
+      DB_DATABASE: "sandbox_local"
+    volumes:
+      - ../www/cakephp-sandbox/:/var/www:delegated
+      # - logs:/var/www/logs
+      - ~/.ssh:/root/.ssh:delegated
+    networks:
+      - traefik
+      - sandbox
+      - mysql
+
+networks:
+  traefik:
+    external: true
+  mysql:
+    external: true
+  sandbox:
+    external: true

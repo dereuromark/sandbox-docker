@@ -1,0 +1,4 @@
+/mysql/data/
+/www/
+/traefik/certs/*.pem
+/.bash_history

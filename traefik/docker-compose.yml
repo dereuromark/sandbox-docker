@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+
+  traefik:
+    image: "traefik:v2.10"
+    container_name: "traefik"
+    command:
+      - "--log.level=DEBUG"
+      - "--api=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=traefik"
+      - "--entrypoints.http.address=:80"
+      - "--entryPoints.http.forwardedHeaders.trustedIPs=172.17.0.0/12"
+      - "--entrypoints.https.address=:443"
+      - "--entryPoints.https.forwardedHeaders.trustedIPs=172.17.0.0/12"
+    networks:
+      traefik:
+        aliases:
+          - sandbox.dev
+          - sandbox.local
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./traefik.toml:/etc/traefik/traefik.toml
+      - ./tls.toml:/etc/traefik/tls.toml
+      - ./certs/:/certs:delegated
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    labels:
+      - "traefik.enable=true"
+
+      - "traefik.http.routers.https-redirect.rule=HostRegexp(`{any:.*}`)"
+      - "traefik.http.routers.https-redirect.entrypoints=http"
+      - "traefik.http.routers.https-redirect.middlewares=https-redirect"
+      - "traefik.http.routers.https-redirect.service=https-redirect"
+      - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.services.https-redirect.loadbalancer.server.url=``"
+
+      - "traefik.http.middlewares.local-ip.ipWhiteList.sourceRange=172.17.0.0/12"
+
+      - "traefik.http.routers.traefik-backend.rule=Host(`traefik.local`)"
+      - "traefik.http.routers.traefik-backend.entrypoints=https"
+      - "traefik.http.routers.traefik-backend.service=api@internal"
+      - "traefik.http.routers.traefik-backend.middlewares=local-ip"
+      - "traefik.http.routers.traefik-backend.tls"
+
+networks:
+  traefik:
+    external: true

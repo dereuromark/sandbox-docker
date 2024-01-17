@@ -1,0 +1,3 @@
+[[tls.certificates]]
+  certFile = "/certs/fullchain.pem"
+  keyFile = "/certs/privkey.pem"

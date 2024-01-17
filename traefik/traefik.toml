@@ -1,0 +1,20 @@
+[log]
+  level = "DEBUG"
+
+[api]
+
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+
+  [entryPoints.https]
+    address = ":443"
+
+
+[providers.docker]
+  exposedbydefault = false
+  network = "traefik"
+
+[providers.file]
+    filename = "/etc/traefik/tls.toml"
+
