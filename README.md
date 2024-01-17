@@ -2,8 +2,8 @@
 
 Docker Container Setup for the sandbox including
 - PHP 8.2
-- Mysql
-- Traefic HTTPS
+- Mysql (MariaDB 10)
+- Traefik HTTPS
 
 See https://github.com/dereuromark/sandbox for the main repo.
 
@@ -12,6 +12,8 @@ See https://github.com/dereuromark/sandbox for the main repo.
 Check out the repo, e.g. using
 
     git clone https://github.com/dereuromark/sandbox-docker.git
+
+You can configure each `docker-compose.yml` if needed.
 
 Then run
 
